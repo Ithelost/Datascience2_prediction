@@ -25,7 +25,7 @@ namespace DataScience2_2019_prediction
             main.Run(); // run once
 
             //Update smoothnes of Alpha, Delta, Gamma
-            main.UpdateSmoothness(stapwaarde);
+            //main.UpdateSmoothness(stapwaarde);
             //main.UpdateSmoothness(stapwaarde, true); 
             //main.UpdateSmoothness(stapwaardeNew, false);
 

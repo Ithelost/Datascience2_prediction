@@ -43,7 +43,7 @@ namespace DataScience2_2019_prediction
 
         private List<List<double>> Read()
         {
-            StreamReader reader = new StreamReader(@"C:\Users\jacob\Documents\Visual Studio 2017\Projects\DataScience2_2019_prediction\DataScience2_2019_prediction\Resources\data.csv");
+            StreamReader reader = new StreamReader(@"D:\DocumentenOpD\Documenten\Unity\Datascience2_prediction\DataScience2_2019_prediction\Resources\data.csv");
             List<List<double>> data = new List<List<double>>();
 
             while (!reader.EndOfStream)

@@ -25,7 +25,7 @@ namespace DataScience2_2019_prediction.Scripts
 
         public void Run()
         {
-            for (int i = 12; i < forcs.Count; i++)
+            for (int i = 12; i < forcs.Count - 12; i++)
             {
                 forcs[i].Level = formula.CalcLevel(forcs[i - 1].Level, forcs[i - 1].TrendLine, smoother.Alpha, forcs[i].Demand, forcs[i - seasonTime].Seasonal_Adj);
                 forcs[i].TrendLine = formula.CalcTrend(forcs[i - 1].Level, forcs[i - 1].TrendLine, smoother.Gamma, smoother.Alpha, forcs[i].Demand, forcs[i - seasonTime].Seasonal_Adj);
@@ -41,18 +41,17 @@ namespace DataScience2_2019_prediction.Scripts
 
         public void Prediction(int n, double m)
         {
-            int iteration = 0;
             Console.WriteLine("Updating prediction");
             for (int k = 48; k < forcs.Count; k++)
             {
                 Forecasting timeToPredict = forcs[k];
-                m = timeToPredict.Time - n;
-                int t = (int)(n - seasonTime + 1 + ((m - 1) % seasonTime));
+                Forecasting lastKnownData = forcs[n - 1];
+                m = timeToPredict.Time - lastKnownData.Time;
+                int t = (int)((n-1) - seasonTime + 1 + ((m - 1) % seasonTime));
                 double SA = forcs[t].Seasonal_Adj;
-                double demand = formula.CalcPrediction(timeToPredict.Level, m, timeToPredict.TrendLine, SA);
+                double demand = formula.CalcPrediction(lastKnownData.Level, m, lastKnownData.TrendLine, SA);
                 timeToPredict.Demand = demand;
                 Console.WriteLine($"Demand = {demand} at time = {timeToPredict.Time}");
-                Run();
             }
         }
 
